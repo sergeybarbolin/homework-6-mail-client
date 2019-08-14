@@ -32,6 +32,5 @@ export default () => (
       <Route path="/app/home" component={Home} />
       <Route path="/app/inbox" component={InboxList} />
       <Route path="/app/outbox" component={OutboxList} />
-      <Redirect to="/app" />
     </div>
 );

@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
 import LoginForm from '../LoginForm';
 import AppRouter from '../AppRouter';
-import { AuthProvider } from '../../context/Auth';
+import { AuthProvider, withAuth } from '../../context/Auth';
 import { DataProvider } from '../../context/Data';
 
 // Мы оборачиваем наши роуты в несколько провайдеров
@@ -17,8 +17,9 @@ export default () => (
     <AuthProvider>
       <BrowserRouter>
         <Switch>
-          <Route path="/login" component={LoginForm} />
-          <Route path="/" exact component={PrivateRoute} />
+          
+          <Route path="/login" component={withAuth(props => <LoginForm {...props} />)} />
+          <Route path="/" exact component={withAuth(props => <PrivateRoute {...props} />)} />
         </Switch>
       </BrowserRouter>
     </AuthProvider>

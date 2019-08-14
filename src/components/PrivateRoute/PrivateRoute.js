@@ -10,7 +10,7 @@ class PrivateRoute extends Component {
   render() {
     const { isAuthorized } = this.props;
 
-    return <Redirect to="/login" />
+    return !isAuthorized && <Redirect to="/login" />
   }
 }
 
