@@ -4,5 +4,6 @@
 // какие классы должен использовать компонент.
 
 import React from 'react';
+import styles from './Home.module.css';
 
-export default () => <div className="home">Home page</div>;
+export default () => <div className={styles.container}><p className="t-greeting">Приветствуем в почтовом клиенте!</p></div>;

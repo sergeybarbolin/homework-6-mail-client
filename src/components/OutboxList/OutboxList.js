@@ -5,5 +5,6 @@
 // Этот компонент должен использовать MailList для отображения данных.
 
 import React from 'react';
+import MailList from './../MailList'
 
-export default () => <div className="OutboxList">OutboxList</div>
+export default ({data}) => <MailList data={data.outbox} category={'outbox'} />

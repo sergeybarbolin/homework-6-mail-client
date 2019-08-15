@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
 import LoginForm from '../LoginForm';
 import AppRouter from '../AppRouter';
@@ -17,9 +17,9 @@ export default () => (
     <AuthProvider>
       <BrowserRouter>
         <Switch>
-          
-          <Route path="/login" component={withAuth(props => <LoginForm {...props} />)} />
           <Route path="/" exact component={withAuth(props => <PrivateRoute {...props} />)} />
+          <Route path="/login" component={withAuth(props => <LoginForm {...props} />)} />
+          <PrivateRoute path="/app" component={withAuth(props => <AppRouter {...props} />)} />
         </Switch>
       </BrowserRouter>
     </AuthProvider>
