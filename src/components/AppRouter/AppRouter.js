@@ -11,7 +11,7 @@
 // используйте стили из AppRouter.module.css
 
 import React, {Fragment} from 'react';
-import {Link, Route, Switch} from 'react-router-dom';
+import {NavLink, Route, Switch} from 'react-router-dom';
 import { withData } from '../../context/Data';
 import Home from './../Home';
 import styles from './AppRouter.module.css';
@@ -20,37 +20,44 @@ import InboxMail from './../InboxMail';
 import OutboxList from './../OutboxList';
 import OutboxMail from './../OutboxMail';
 
-export default ({location}) => {
+export default (props) => {
+  console.log(props);
   return ( <Fragment>
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <nav className={styles.nav}>
           <ul className={`${styles.navList} t-nav-list`}>
             <li className={styles.navElement}>
-              <Link className={`${styles.Link} t-link-home active`} to="/app/home">Home</Link>
+              <NavLink 
+                className={`${styles.Link} t-link-home`} 
+                activeClassName="active"
+                to="/app/home">
+                  Home
+              </NavLink>
             </li>
             <li className={styles.navElement}>
-              <Link className={`${styles.Link} t-link-inbox`} to="/app/inbox">Inbox</Link>
+              <NavLink className={`${styles.Link} t-link-inbox`} to="/app/inbox">Inbox</NavLink>
             </li>
             <li className={styles.navElement}>
-              <Link className={`${styles.Link} t-link-outbox`} to="/app/outbox">Outbox</Link>
+              <NavLink className={`${styles.Link} t-link-outbox`} to="/app/outbox">Outbox</NavLink>
             </li>
           </ul>
         </nav>
 
         <div className={styles.content}>
           <h3 className={styles.title}>
-            {
-              location.pathname.indexOf('inbox') !== -1 ? 'Inbox'
-              : location.pathname.indexOf('outbox') !== -1 ? 'Outbox'
-              : 'Home'
-            }
+          <Switch>
+            <Route path="/app" exact render={() => 'Home'} />
+            <Route path="/app/home" render={() => 'Home'} />
+
+            <Route path="/app/inbox" render={() => 'Inbox'} />
+            <Route path="/app/outbox" render={() => 'Outbox'} />
+          </Switch>
           </h3>
 
           <Switch>
             <Route path="/app" exact component={Home} />
             <Route path="/app/home" exact component={Home} />
-            <Route path="/app/outbox" exact component={ withData(props => <OutboxList {...props} />) } />
 
             <Route path="/app/inbox" exact component={ withData(props => <InboxList {...props} />) } />
             <Route path="/app/outbox" exact component={ withData(props => <OutboxList {...props} />) } />

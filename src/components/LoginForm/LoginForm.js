@@ -8,8 +8,8 @@ import { Redirect } from 'react-router-dom';
 // Когда пользователь авторизован - перенаправьте его на роут /app
 
 export default ({isAuthorized, authError, authorize}) => {
-
-    const validForm = event => {
+    
+    function validForm(event) {
         event.preventDefault();
         
         const {email, password} = event.target;
