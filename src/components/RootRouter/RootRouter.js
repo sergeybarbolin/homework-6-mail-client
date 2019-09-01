@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
 import LoginForm from '../LoginForm';
 import AppRouter from '../AppRouter';
-import { AuthProvider } from '../../context/Auth';
+import { AuthProvider, withAuth } from '../../context/Auth';
 import { DataProvider } from '../../context/Data';
 
 // Мы оборачиваем наши роуты в несколько провайдеров
@@ -17,17 +17,9 @@ export default () => (
     <AuthProvider>
       <BrowserRouter>
         <Switch>
-          {/*
-            Добавьте роуты /app и /login.
-            Роут /app должен быть доступен 
-            только авторизованному пользователю,
-            используйте приватный роут.
-            По умолчанию должен происходить редирект
-            на страницу логина.
-
-            /app будет использовать AppRouter в качестве вью
-            /login будет использовать LoginForm
-          */}
+          <Route path="/" exact component={withAuth(props => <PrivateRoute {...props} />)} />
+          <Route path="/login" component={withAuth(props => <LoginForm {...props} />)} />
+          <PrivateRoute path="/app" component={withAuth(props => <AppRouter {...props} />)} />
         </Switch>
       </BrowserRouter>
     </AuthProvider>
